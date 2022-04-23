@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Create the scene and view
     scene = new Scene(this);
-    scene->setSceneRect(0,0,400,400);
+    scene->setSceneRect(0,0,800,600);
     view = new QGraphicsView(scene);
     view->setRenderHints(QPainter::Antialiasing);
     setCentralWidget(view);
@@ -32,20 +32,25 @@ void MainWindow::createActions(){
     selectAction->setIcon(QIcon(":/icons/select.png"));
     selectAction->setCheckable(true);
 
-    rect1Action = new QAction("Rect1",this);
-    rect1Action->setData(int(Scene::DrawRect1));;
-    rect1Action->setCheckable(true);
+    rectAction = new QAction("Rect",this);
+    rectAction->setData(int(Scene::DrawRect));;
+    rectAction->setCheckable(true);
 
-    rect2Action = new QAction("Rect2",this);
-    rect2Action->setData(int(Scene::DrawRect2));;
-    rect2Action->setCheckable(true);
+    circAction = new QAction("Circ",this);
+    circAction->setData(int(Scene::DrawCirc));;
+    circAction->setCheckable(true);
+
+    triAction = new QAction("Tri",this);
+    triAction->setData(int(Scene::DrawTri));;
+    triAction->setCheckable(true);
 
     actionGroup = new QActionGroup(this);
     actionGroup->setExclusive(true);
     actionGroup->addAction(lineAction);
     actionGroup->addAction(selectAction);
-    actionGroup->addAction(rect1Action);
-    actionGroup->addAction(rect2Action);
+    actionGroup->addAction(rectAction);
+    actionGroup->addAction(circAction);
+    actionGroup->addAction(triAction);
 }
 
 void MainWindow::createConnections(){
@@ -62,6 +67,7 @@ void MainWindow::createToolBar(){
     addToolBar(Qt::TopToolBarArea, drawingToolBar);
     drawingToolBar->addAction(selectAction);
     drawingToolBar->addAction(lineAction);
-    drawingToolBar->addAction(rect1Action);
-    drawingToolBar->addAction(rect2Action);
+    drawingToolBar->addAction(rectAction);
+    drawingToolBar->addAction(circAction);
+    drawingToolBar->addAction(triAction);
 }

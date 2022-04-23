@@ -22,17 +22,36 @@ void Scene::setMode(Mode mode){
         makeItemsControllable(true);
         vMode = QGraphicsView::RubberBandDrag;
     }
-    else if(mode == DrawRect1){
-        CustomRectItem* rectItem1 = new CustomRectItem(QRect(0,0,80,80));
-        rectItem1->setPos(50,50);
-        rectItem1->setBrush(Qt::gray);
-        this->addItem(rectItem1);
+    else if(mode == DrawRect){
+        CustomRectItem* rectItem = new CustomRectItem(QRect(0,0,80,80));
+        rectItem->setPos(50,50);
+        rectItem->setBrush(Qt::gray);
+        this->addItem(rectItem);
     }
-    else if(mode == DrawRect2){
-        CustomRectItem* rectItem2 = new CustomRectItem(QRect(0,0,60,60));
-        rectItem2->setPos(160,60);
-        rectItem2->setBrush(Qt::magenta);
-        this->addItem(rectItem2);
+    else if(mode == DrawCirc){
+        QGraphicsEllipseItem* circItem = new QGraphicsEllipseItem(QRect(0,0,40,40));
+        circItem->setPos(150,150);
+        circItem->setBrush(Qt::blue);
+        circItem->setFlags(QGraphicsItem::ItemIsSelectable |
+                           QGraphicsItem::ItemIsMovable |
+                           QGraphicsItem::ItemSendsGeometryChanges);
+        this->addItem(circItem);
+    }
+    else if(mode == DrawTri){
+        QPainterPath* path = new QPainterPath();
+        path->moveTo(0,0);
+        path->lineTo(30,60);
+        path->lineTo(60,0);
+        path->lineTo(0,0);
+
+        QGraphicsPathItem* triItem = new QGraphicsPathItem();
+        triItem->setPath(*path);
+        triItem->setPos(200,200);
+        triItem->setFlags(QGraphicsItem::ItemIsSelectable |
+                          QGraphicsItem::ItemIsMovable |
+                          QGraphicsItem::ItemSendsGeometryChanges);
+        triItem->setBrush(Qt::green);
+        this->addItem(triItem);
     }
     QGraphicsView* mView = views().at(0);
     if(mView)
@@ -120,7 +139,6 @@ void Scene::drawBackground(QPainter *painter, const QRectF &rect)
     int left = int(rect.left()) - (int(rect.left()) % gridSize);
     int top = int(rect.top()) - (int(rect.top()) % gridSize);
 
-//    qDebug() << "left = " << left << " top = " << top;
     QVector<QPointF> points;
     for (int x = left; x < rect.right(); x += gridSize){
         for (int y = top; y < rect.bottom(); y += gridSize){
@@ -128,7 +146,5 @@ void Scene::drawBackground(QPainter *painter, const QRectF &rect)
         }
     }
     painter->drawPoints(points.data(), points.size());
-
-    //qDebug() << points.data();
 }
 

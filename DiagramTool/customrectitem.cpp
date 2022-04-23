@@ -4,12 +4,12 @@ CustomRectItem::CustomRectItem(const QRect& rect, QGraphicsItem* parent):
     QGraphicsRectItem(rect, parent)
 {
     setFlags(QGraphicsItem::ItemIsSelectable |
-            QGraphicsItem::ItemIsMovable |
-            QGraphicsItem::ItemSendsGeometryChanges);
+             QGraphicsItem::ItemIsMovable |
+             QGraphicsItem::ItemSendsGeometryChanges);
 }
 
 QVariant CustomRectItem::itemChange(GraphicsItemChange change,
-const QVariant &value)
+                                    const QVariant &value)
 {
     if (change == ItemPositionChange && scene()) {
         QPointF newPos = value.toPointF();

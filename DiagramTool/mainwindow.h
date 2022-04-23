@@ -26,8 +26,9 @@ private:
 
     QAction* lineAction;
     QAction* selectAction;
-    QAction* rect1Action;
-    QAction* rect2Action;
+    QAction* rectAction;
+    QAction* circAction;
+    QAction* triAction;
     QActionGroup* actionGroup;
     QToolBar* drawingToolBar;
 };
