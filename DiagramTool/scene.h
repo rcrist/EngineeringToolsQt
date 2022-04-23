@@ -24,9 +24,13 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     void keyPressEvent(QKeyEvent *event);
     void drawBackground (QPainter* painter, const QRectF &rect);
+    void SnapToGrid(qreal &x, qreal &y);
 private:
     Mode sceneMode;
     QPointF origPoint;
+    QPointF endPoint;
+    QPoint snapOrigPoint;
+    QPoint snapEndPoint;
     QGraphicsLineItem* itemToDraw;
     void makeItemsControllable(bool areControllable);
     int gridSize;

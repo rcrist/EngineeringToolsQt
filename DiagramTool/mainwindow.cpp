@@ -7,15 +7,18 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setWindowTitle("Engineering Tools: Diagram Tool");
     this->move(screen()->geometry().center() - frameGeometry().center());
 
+    // Create the scene and view
     scene = new Scene(this);
     scene->setSceneRect(0,0,400,400);
     view = new QGraphicsView(scene);
     view->setRenderHints(QPainter::Antialiasing);
     setCentralWidget(view);
 
+    // Setup toolbar
     createActions();
     createConnections();
     createToolBar();
+
 }
 
 void MainWindow::createActions(){

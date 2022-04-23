@@ -1,5 +1,6 @@
 #include "scene.h"
 #include "CustomRectItem.h"
+#include <math.h>
 
 Scene::Scene(QObject* parent):
     QGraphicsScene(parent), gridSize(10)
@@ -47,9 +48,25 @@ void Scene::makeItemsControllable(bool areControllable){
     }
 }
 
+void Scene::SnapToGrid(qreal &x, qreal &y) // C++ pass arguments by reference
+{
+    int grid_gap = getGridSize();
+
+    x = grid_gap * round(x / grid_gap);
+    y = grid_gap * round(y / grid_gap);
+}
+
 void Scene::mousePressEvent(QGraphicsSceneMouseEvent *event){
     if(sceneMode == DrawLine)
-        origPoint = event->scenePos();
+    {
+        origPoint = event->scenePos(); // Get the mouse position
+        qreal x = origPoint.x();
+        qreal y = origPoint.y();
+        SnapToGrid(x, y);
+        snapOrigPoint.setX((int)x);
+        snapOrigPoint.setY((int)y);
+
+    }
     QGraphicsScene::mousePressEvent(event);
 }
 
@@ -59,11 +76,18 @@ void Scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
             itemToDraw = new QGraphicsLineItem;
             this->addItem(itemToDraw);
             itemToDraw->setPen(QPen(Qt::black, 3, Qt::SolidLine));
-            itemToDraw->setPos(origPoint);
+            itemToDraw->setPos(snapOrigPoint);
         }
+        endPoint = event->scenePos(); // Get the mouse position
+        qreal x = endPoint.x();
+        qreal y = endPoint.y();
+        SnapToGrid(x, y);
+        snapEndPoint.setX((int)x);
+        snapEndPoint.setY((int)y);
+
         itemToDraw->setLine(0,0,
-                            event->scenePos().x() - origPoint.x(),
-                            event->scenePos().y() - origPoint.y());
+                            snapEndPoint.x() - snapOrigPoint.x(),
+                            snapEndPoint.y() - snapOrigPoint.y());
     }
     else
         QGraphicsScene::mouseMoveEvent(event);
@@ -93,14 +117,18 @@ void Scene::drawBackground(QPainter *painter, const QRectF &rect)
     pen.setCosmetic(true);
     painter->setPen(pen);
 
-    qreal left = int(rect.left()) - (int(rect.left()) % gridSize);
-    qreal top = int(rect.top()) - (int(rect.top()) % gridSize);
+    int left = int(rect.left()) - (int(rect.left()) % gridSize);
+    int top = int(rect.top()) - (int(rect.top()) % gridSize);
+
+//    qDebug() << "left = " << left << " top = " << top;
     QVector<QPointF> points;
-    for (qreal x = left; x < rect.right(); x += gridSize){
-        for (qreal y = top; y < rect.bottom(); y += gridSize){
+    for (int x = left; x < rect.right(); x += gridSize){
+        for (int y = top; y < rect.bottom(); y += gridSize){
             points.append(QPointF(x,y));
         }
     }
     painter->drawPoints(points.data(), points.size());
+
+    //qDebug() << points.data();
 }
 
