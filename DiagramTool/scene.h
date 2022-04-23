@@ -14,7 +14,7 @@ class Scene : public QGraphicsScene
 {
     Q_OBJECT
 public:
-    enum Mode {NoMode, SelectObject, DrawLine, DrawRect, DrawCirc, DrawTri};
+    enum Mode {NoMode, SelectObject, DrawLine, DrawRect, DrawCirc, DrawTri, SetPen};
     explicit Scene(QObject *parent = 0);
     int getGridSize() const {return this->gridSize;}
     void setMode(Mode mode);

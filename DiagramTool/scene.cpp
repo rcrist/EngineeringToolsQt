@@ -1,5 +1,7 @@
 #include "scene.h"
 #include "CustomRectItem.h"
+#include "customcircleitem.h"
+#include "customtriangleitem.h"
 #include <math.h>
 
 Scene::Scene(QObject* parent):
@@ -25,33 +27,26 @@ void Scene::setMode(Mode mode){
     else if(mode == DrawRect){
         CustomRectItem* rectItem = new CustomRectItem(QRect(0,0,80,80));
         rectItem->setPos(50,50);
-        rectItem->setBrush(Qt::gray);
+        rectItem->setPen(rectItem->penColor);
+        rectItem->setBrush(rectItem->brushColor);
         this->addItem(rectItem);
     }
     else if(mode == DrawCirc){
-        QGraphicsEllipseItem* circItem = new QGraphicsEllipseItem(QRect(0,0,40,40));
+        CustomCircleItem* circItem = new CustomCircleItem(QRect(0,0,40,40));
         circItem->setPos(150,150);
-        circItem->setBrush(Qt::blue);
-        circItem->setFlags(QGraphicsItem::ItemIsSelectable |
-                           QGraphicsItem::ItemIsMovable |
-                           QGraphicsItem::ItemSendsGeometryChanges);
+        circItem->setPen(circItem->penColor);
+        circItem->setBrush(circItem->brushColor);
         this->addItem(circItem);
     }
     else if(mode == DrawTri){
-        QPainterPath* path = new QPainterPath();
-        path->moveTo(0,0);
-        path->lineTo(30,60);
-        path->lineTo(60,0);
-        path->lineTo(0,0);
-
-        QGraphicsPathItem* triItem = new QGraphicsPathItem();
-        triItem->setPath(*path);
+        CustomTriangleItem* triItem = new CustomTriangleItem();
         triItem->setPos(200,200);
-        triItem->setFlags(QGraphicsItem::ItemIsSelectable |
-                          QGraphicsItem::ItemIsMovable |
-                          QGraphicsItem::ItemSendsGeometryChanges);
-        triItem->setBrush(Qt::green);
+        triItem->setPen(triItem->penColor);
+        triItem->setBrush(triItem->brushColor);
         this->addItem(triItem);
+    }
+    else if(mode == SetPen) {
+
     }
     QGraphicsView* mView = views().at(0);
     if(mView)

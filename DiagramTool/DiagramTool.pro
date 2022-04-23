@@ -9,13 +9,17 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    customcircleitem.cpp \
     customrectitem.cpp \
+    customtriangleitem.cpp \
     main.cpp \
     mainwindow.cpp \
     scene.cpp
 
 HEADERS += \
+    customcircleitem.h \
     customrectitem.h \
+    customtriangleitem.h \
     mainwindow.h \
     scene.h
 
@@ -26,3 +30,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     diagram_resources.qrc
+
+DISTFILES += \
+    ../README.md

@@ -33,16 +33,23 @@ void MainWindow::createActions(){
     selectAction->setCheckable(true);
 
     rectAction = new QAction("Rect",this);
-    rectAction->setData(int(Scene::DrawRect));;
+    rectAction->setData(int(Scene::DrawRect));
+    rectAction->setIcon(QIcon(":/icons/rect.png"));
     rectAction->setCheckable(true);
 
     circAction = new QAction("Circ",this);
-    circAction->setData(int(Scene::DrawCirc));;
+    circAction->setData(int(Scene::DrawCirc));
+    circAction->setIcon(QIcon(":/icons/circ.png"));
     circAction->setCheckable(true);
 
     triAction = new QAction("Tri",this);
-    triAction->setData(int(Scene::DrawTri));;
+    triAction->setData(int(Scene::DrawTri));
+    triAction->setIcon(QIcon(":/icons/tri.png"));
     triAction->setCheckable(true);
+
+    penAction = new QAction("Pen",this);
+    penAction->setData(int(Scene::SetPen));
+    penAction->setCheckable(true);
 
     actionGroup = new QActionGroup(this);
     actionGroup->setExclusive(true);
@@ -51,6 +58,7 @@ void MainWindow::createActions(){
     actionGroup->addAction(rectAction);
     actionGroup->addAction(circAction);
     actionGroup->addAction(triAction);
+    actionGroup->addAction(penAction);
 }
 
 void MainWindow::createConnections(){
@@ -70,4 +78,5 @@ void MainWindow::createToolBar(){
     drawingToolBar->addAction(rectAction);
     drawingToolBar->addAction(circAction);
     drawingToolBar->addAction(triAction);
+    drawingToolBar->addAction(penAction);
 }

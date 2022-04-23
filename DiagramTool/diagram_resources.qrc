@@ -2,5 +2,8 @@
     <qresource prefix="/">
         <file>icons/line.png</file>
         <file>icons/select.png</file>
+        <file>icons/rect.png</file>
+        <file>icons/circ.png</file>
+        <file>icons/tri.png</file>
     </qresource>
 </RCC>

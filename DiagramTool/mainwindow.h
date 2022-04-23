@@ -29,6 +29,7 @@ private:
     QAction* rectAction;
     QAction* circAction;
     QAction* triAction;
+    QAction* penAction;
     QActionGroup* actionGroup;
     QToolBar* drawingToolBar;
 };

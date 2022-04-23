@@ -1,18 +1,25 @@
-#include "customrectitem.h"
+#include "customtriangleitem.h"
 
-CustomRectItem::CustomRectItem(const QRect& rect, QGraphicsItem* parent):
-    QGraphicsRectItem(rect, parent)
+CustomTriangleItem::CustomTriangleItem(QGraphicsItem* parent):
+    QGraphicsPathItem(parent)
 {
     setFlags(QGraphicsItem::ItemIsSelectable |
              QGraphicsItem::ItemIsMovable |
              QGraphicsItem::ItemSendsGeometryChanges);
 
-    penColor = QColor(Qt::red);
-    brushColor = QColor(Qt::gray);
+    QPainterPath* path = new QPainterPath();
+    path->moveTo(0,0);
+    path->lineTo(30,-60);
+    path->lineTo(60,0);
+    path->lineTo(0,0);
+    this->setPath(*path);
+
+    penColor = QColor(Qt::black);
+    brushColor = QColor(Qt::green);
 }
 
-QVariant CustomRectItem::itemChange(GraphicsItemChange change,
-                                    const QVariant &value)
+QVariant CustomTriangleItem::itemChange(GraphicsItemChange change,
+                                        const QVariant &value)
 {
     if (change == ItemPositionChange && scene()) {
         QPointF newPos = value.toPointF();

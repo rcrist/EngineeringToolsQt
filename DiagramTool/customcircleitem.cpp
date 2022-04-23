@@ -1,17 +1,16 @@
-#include "customrectitem.h"
+#include "customcircleitem.h"
 
-CustomRectItem::CustomRectItem(const QRect& rect, QGraphicsItem* parent):
-    QGraphicsRectItem(rect, parent)
+CustomCircleItem::CustomCircleItem(const QRect& rect, QGraphicsItem* parent):
+    QGraphicsEllipseItem(rect, parent)
 {
     setFlags(QGraphicsItem::ItemIsSelectable |
              QGraphicsItem::ItemIsMovable |
              QGraphicsItem::ItemSendsGeometryChanges);
-
-    penColor = QColor(Qt::red);
-    brushColor = QColor(Qt::gray);
+    penColor = QColor(Qt::black);
+    brushColor = QColor(Qt::blue);
 }
 
-QVariant CustomRectItem::itemChange(GraphicsItemChange change,
+QVariant CustomCircleItem::itemChange(GraphicsItemChange change,
                                     const QVariant &value)
 {
     if (change == ItemPositionChange && scene()) {
